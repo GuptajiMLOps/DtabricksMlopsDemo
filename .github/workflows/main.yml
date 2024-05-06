@@ -1,0 +1,33 @@
+name: Publish Code to Databricks Shared Folder
+ 
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+ 
+jobs:
+  deploy-to-databricks:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+ 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+ 
+      - name: Install Databricks CLI
+        run: pip install databricks-cli
+ 
+      - name: Publish Files to Databricks Workspace
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          # Copy entire directory or specific files
+          databricks workspace mkdirs /Shared/Mlops_Project
+          databricks workspace import_dir ./src /Shared/Mlops_Project --overwrite
