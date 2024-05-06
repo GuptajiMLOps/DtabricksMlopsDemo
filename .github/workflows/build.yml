@@ -30,4 +30,4 @@ jobs:
           databrick-server-uri: ${{ secrets.DATABRICKS_HOST }}
           databrick-token: ${{ secrets.DATABRICKS_TOKEN }}
           databrick-cluster-id: '0503-182434-jlo2i3me'
-          databrick-local-path: '/Shared/Mlops_Project/ML_End_to_END_Project.ipynb'
+          databrick-workspace-path: '/Shared/Mlops_Project/ML_End_to_END_Project.ipynb'
