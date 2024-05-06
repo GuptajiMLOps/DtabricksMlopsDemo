@@ -24,3 +24,19 @@ jobs:
           # Copy entire directory or specific files
           databricks workspace mkdirs /Shared/Mlops_Project
           databricks workspace import_dir ./ /Shared/Mlops_Project --overwrite
+      - name: Run Notebook
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          JOB_ID=$(databricks jobs create --json '{
+            "name": "Execute My Notebook",
+            "tasks": [{
+              "task_key": "execute_notebook",
+              "notebook_task": {
+                "notebook_path": "/Shared/Mlops_Project/ML End to END Project.ipynb"
+              }
+            }]
+          }' | jq -r '.job_id')
+          RUN_ID=$(databricks jobs run-now --job-id $JOB_ID | jq -r '.run_id')
+          echo "Notebook job submitted. Monitor the run at $DATABRICKS_HOST#job/$JOB_ID/run/$RUN_ID"
