@@ -25,9 +25,9 @@ jobs:
           databricks workspace mkdirs /Shared/Mlops_Project
           databricks workspace import_dir ./ /Shared/Mlops_Project --overwrite
       - name: Trigger Databricks Notebook
-        uses: Herman-Wu/databrick-notebook-run-action@master
+        uses: databrickslabs/github-actions@databricks-run-notebook
         with:
-          databrick-server-uri: ${{ secrets.DATABRICKS_HOST }}
-          databrick-token: ${{ secrets.DATABRICKS_TOKEN }}
-          databrick-cluster-id: '0503-182434-jlo2i3me'
-          databrick-workspace-path: '/Shared/Mlops_Project/ML_End_to_END_Project.ipynb'
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          notebook_path: '/Shared/Mlops_Project/ML_End_to_END_Project.ipynb'
+          cluster_id: '0503-182434-jlo2i3me'
