@@ -29,7 +29,7 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
-          JOB_ID=$(databricks jobs create --json '{
+          JOB_ID=$(databricks jobs create --json {
             "name": "Execute My Notebook",
             "tasks": [{
               "task_key": "execute_notebook",
@@ -37,6 +37,6 @@ jobs:
                 "notebook_path": "/Shared/Mlops_Project/ML_End_to_END_Project.ipynb"
               }
             }]
-          }' | jq -r '.job_id')
+          } | jq -r '.job_id')
           RUN_ID=$(databricks jobs run-now --job-id $JOB_ID | jq -r '.run_id')
           echo "Notebooks job submitted. Monitor the run at $DATABRICKS_HOST#job/$JOB_ID/run/$RUN_ID"
