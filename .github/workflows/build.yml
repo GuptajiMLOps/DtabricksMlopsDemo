@@ -39,4 +39,4 @@ jobs:
             }]
           }' | jq -r '.job_id')
           RUN_ID=$(databricks jobs run-now --job-id $JOB_ID | jq -r '.run_id')
-          echo "Notebook job submitted. Monitor the run at $DATABRICKS_HOST#job/$JOB_ID/run/$RUN_ID"
+          echo "Notebooks job submitted. Monitor the run at $DATABRICKS_HOST#job/$JOB_ID/run/$RUN_ID"
