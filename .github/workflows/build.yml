@@ -25,9 +25,14 @@ jobs:
           databricks workspace mkdirs /Shared/Mlops_Project
           databricks workspace import_dir ./ /Shared/Mlops_Project --overwrite
       - name: Trigger Databricks Notebook
-        uses: databrickslabs/github-actions@databricks-run-notebook
+        uses: databricks/run-notebook@v0
         with:
+          local-notebook-path: ML_End_to_END_Project.ipynb
+          libraries-json: >
+            [
+              { "pypi": "mlflow" }
+            ]
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
           notebook_path: '/Shared/Mlops_Project/ML_End_to_END_Project.ipynb'
-          cluster_id: '0503-182434-jlo2i3me'
+          existing-cluster-id: '0503-182434-jlo2i3me'
