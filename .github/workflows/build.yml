@@ -23,7 +23,7 @@ jobs:
         run: |
           # Copy entire directory or specific files
           databricks workspace mkdirs /Shared/Mlops_Project
-          databricks workspace import_dir ./ML_End_to_END_Project.ipynb /Shared/Mlops_Project --overwrite
+          databricks workspace import_dir ./ /Shared/Mlops_Project --overwrite
       - name: Run Notebook
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
