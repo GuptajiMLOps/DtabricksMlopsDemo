@@ -23,4 +23,4 @@ jobs:
         run: |
           # Copy entire directory or specific files
           databricks workspace mkdirs /Shared/Mlops_Project
-          databricks workspace import_dir ./src /Shared/Mlops_Project --overwrite
+          databricks workspace import_dir ./ /Shared/Mlops_Project --overwrite
